@@ -10,21 +10,21 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class FileUserRepository implements UserRepository {
-  private final Path pathToFile;
+    private final Path pathToFile;
 
-  public FileUserRepository(Path pathToFile) {
-    this.pathToFile = pathToFile;
-  }
-
-  @Override
-  public List<User> findAll() throws Exception {
-    List<String[]> users;
-    try (InputStream is = Files.newInputStream(pathToFile);
-         CSVReader reader = new CSVReader(new InputStreamReader(is))) {
-      users = reader.readAll();
+    public FileUserRepository(Path pathToFile) {
+        this.pathToFile = pathToFile;
     }
-    return users.stream()
-        .map(array -> new User(array[0], array[1]))
-        .toList();
-  }
+
+    @Override
+    public List<User> findAll() throws Exception {
+        List<String[]> users;
+        try (InputStream is = Files.newInputStream(pathToFile);
+             CSVReader reader = new CSVReader(new InputStreamReader(is))) {
+            users = reader.readAll();
+        }
+        return users.stream()
+                .map(array -> new User(array[0], array[1], array[2]))
+                .toList();
+    }
 }

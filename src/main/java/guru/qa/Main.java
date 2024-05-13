@@ -10,18 +10,21 @@ import guru.qa.session.UserSession;
 import java.nio.file.Path;
 
 public class Main {
-  public static void main(String[] args) throws Exception {
-    new Front(
-        new LoginFront(
-            new FileUserRepository(
-                Path.of("users.csv")
-            )
-        ),
-        new NotesFront(
-            new FileNotesRepository(
-                Path.of("notes.csv")
-            )
-        )
-    ).start(UserSession.INSTANCE);
-  }
+
+    public static String userRepositoryPath = "users.csv";
+
+    public static void main(String[] args) throws Exception {
+        new Front(
+                new LoginFront(
+                        new FileUserRepository(
+                                Path.of(userRepositoryPath)
+                        )
+                ),
+                new NotesFront(
+                        new FileNotesRepository(
+                                Path.of("notes.csv")
+                        )
+                )
+        ).start(UserSession.INSTANCE);
+    }
 }
